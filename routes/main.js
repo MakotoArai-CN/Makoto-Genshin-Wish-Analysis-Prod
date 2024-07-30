@@ -1,11 +1,11 @@
 var express = require('express');
-var {mappings,MongoDB_url} = require('../config');
+var { mappings, MongoDB_url } = require('../config');
 var router = express.Router();
 // //////////
 const {
   MongoClient
 } = require('mongodb');
-const url = MongoDB_url==""?'mongodb://localhost:27017':MongoDB_url;
+const url = (MongoDB_url == "" ? 'mongodb://localhost:27017' : MongoDB_url);
 const dbName = 'grasscutter';
 router.post("/", function (req, res, next) {
   let UID = req.body.UID; // 从请求体中获取用户名
@@ -13,11 +13,36 @@ router.post("/", function (req, res, next) {
   if (!isNaN(parseFloat(UID)) && isFinite(UID)) {
     UID = parseInt(UID);
   } else {
-    res.send({
-      code: 400,
-      msg: "请输入正确的用户名"
-    });
-    console.log(typeof UID);
+    res.send(
+      `
+      <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css">
+      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="css/animate.min.css">
+      <link rel="stylesheet" type="text/css" href="js/bootstrap-multitabs/multitabs.min.css">
+      <link rel="stylesheet" type="text/css" href="css/style.min.css">
+      <body>
+      <div class="container p-4">
+        <div class="card border-yellow text-center p-4">
+          <div class="card-header text-danger">
+            错误⚠
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">UID怎么可以是空的？你疯了吧！</h5>
+            <p class="card-text">请检查您的UID是否正确，输入正确的UID才行哦！！！</p>
+            <button class="btn btn-primary" onclick="parent.location.reload();">重新输入</button>
+          </div>
+        </div>
+      </div>
+      </body>
+      <script type="text/javascript" src="js/jquery.min.js"></script>
+      <script type="text/javascript" src="js/popper.min.js"></script>
+      <script type="text/javascript" src="js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
+      <script type="text/javascript" src="js/bootstrap-multitabs/multitabs.min.js"></script>
+      <script type="text/javascript" src="js/jquery.cookie.min.js"></script>
+      <script type="text/javascript" src="js/index.min.js"></script>
+      `
+    );
     return;
   }
   (async function () {
@@ -25,7 +50,7 @@ router.post("/", function (req, res, next) {
     let client;
     try {
       // Connect to the MongoDB cluster
-      client = await MongoClient.connect(url);
+      client = await MongoClient.connect(url); 
       console.log("Connected successfully to server");
 
       const db = client.db(dbName);
@@ -40,8 +65,8 @@ router.post("/", function (req, res, next) {
           <link rel="stylesheet" type="text/css" href="js/bootstrap-multitabs/multitabs.min.css">
           <link rel="stylesheet" type="text/css" href="css/style.min.css">
           <body>
-          <div class="container">
-            <div class="card border-yellow text-center">
+          <div class="container p-4">
+            <div class="card border-yellow text-center p-4">
               <div class="card-header text-yellow">
                 警告⚠
               </div>
@@ -67,6 +92,7 @@ router.post("/", function (req, res, next) {
       }
 
       const gachaCollection = db.collection('gachas');
+      //祈愿集合
 
       const results301 = await gachaCollection.find({
         ownerId: UID,
@@ -103,12 +129,17 @@ router.post("/", function (req, res, next) {
       // console.log("总数："+resultstoday);
       const resultsgachacount = await gachaCollection.find({ ownerId: UID }).count();
       // console.log("抽卡总数：" + resultsgachacount);
+      const resultsAccount = await accountsCollection.find({ _id: "" + UID + "" }).toArray();
+      // console.log("您的信息：" + resultsAccount[0].username);
+
       const resultsYellowTotal = await gachaCollection.find({
         ownerId: UID,
-        $or:[{gachaType: 301},{gachaType: 302},{gachaType: 400}]
+        $or: [{ gachaType: 301 }, { gachaType: 302 }, { gachaType: 400 }]
       }).sort({
-        transactionDate: 1
-      }).toArray();
+        transactionDate: -1
+      }).limit(1000).toArray();
+
+      //**************************************************************************** */
       let lastYellowIndex301 = -1; // 记录最近一个yellow物品的索引
       let lastYellowIndex302 = -1; // 记录最近一个yellow物品的索引
       let lastYellowIndex100 = -1; // 记录最近一个yellow物品的索引
@@ -313,13 +344,51 @@ router.post("/", function (req, res, next) {
         postYellowCount200: postYellowCount200,
         postYellowCountYellowTotal: postYellowCountYellowTotal,
         resultstoday: resultstoday,        // 今日抽卡总数
-        resultsgachacount: resultsgachacount// 抽卡总数
+        resultsgachacount: resultsgachacount,// 抽卡总数
+        username: resultsAccount[0].username// 用户名
       });
       // });
 
+    } catch (error) {
+      // console.error('Error connecting to MongoDB:', error);
+      console.log("We are not connected to the server!");
+        res.send(
+          `
+          <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css">
+          <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+          <link rel="stylesheet" type="text/css" href="css/animate.min.css">
+          <link rel="stylesheet" type="text/css" href="js/bootstrap-multitabs/multitabs.min.css">
+          <link rel="stylesheet" type="text/css" href="css/style.min.css">
+          <body>
+          <div class="container p-4 ">
+            <div class="card border-yellow text-center p-4 align-self-center">
+              <div class="card-header text-yellow">
+                <h1>警告⚠</h1>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">服务器出现错误！</h5>
+                <p class="card-text">请联系您的服务管理人员进行维护哦！！！</p>
+                <button class="btn btn-warning" onclick="parent.location.reload();">重试一下</button>
+              </div>
+            </div>
+          </div>
+          </body>
+          <script type="text/javascript" src="js/jquery.min.js"></script>
+          <script type="text/javascript" src="js/popper.min.js"></script>
+          <script type="text/javascript" src="js/bootstrap.min.js"></script>
+          <script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
+          <script type="text/javascript" src="js/bootstrap-multitabs/multitabs.min.js"></script>
+          <script type="text/javascript" src="js/jquery.cookie.min.js"></script>
+          <script type="text/javascript" src="js/index.min.js"></script>
+          `
+        );
+        return;
     } finally {
       // Close connection
-      await client.close();
+      if (client) {
+        await client.close();
+        console.log('Connection closed');
+      }
     }
   })();
 });
@@ -352,7 +421,8 @@ router.get("/", function (req, res, next) {
     postYellowCount200: 0,
     postYellowCountYellowTotal: 0,
     resultstoday: 0,        // 今日抽卡总数
-    resultsgachacount: 0// 抽卡总数
+    resultsgachacount: 0,// 抽卡总数
+    username: ""// 用户名
   });
 });
 

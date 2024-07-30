@@ -1,9 +1,14 @@
 {
   "name": "Makoto-Genshin-Wish-Analysis-Prod",
-  "version": "0.0.3_β",
+  "version": "0.0.3_Release",
   "private": true,
+  "bin":"./bin/www",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "pkg": "pkg . --icon ./icon.ico -t  node16-win-x64 -o Makoto-Genshin-Wish-Analysis-Prod "
+  },
+  "pkg":{
+    "assets":["public/**/*","views/*"]
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

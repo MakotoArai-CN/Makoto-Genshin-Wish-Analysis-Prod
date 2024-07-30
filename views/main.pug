@@ -1,246 +1,280 @@
-meta(http-equiv="Content-Type" content="text/html; charset=UTF-8")
-meta(http-equiv="X-UA-Compatible" content="IE=edge")
-meta(name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimal-ui")
-meta(name="keywords" content="祈愿查询")
-meta(name="description" content="Light Year Admin V5是一个基于Bootstrap v5.1.3的后台管理系统的HTML模板。")
-title 祈愿查询
-link(rel="shortcut icon" type="image/x-icon" href="favicon.ico")
-meta(name="apple-mobile-web-app-capable" content="yes")
-meta(name="apple-touch-fullscreen" content="yes")
-meta(name="apple-mobile-web-app-status-bar-style" content="default")
-link(rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css")
-link(rel="stylesheet" type="text/css" href="css/bootstrap.min.css")
-link(rel="stylesheet" type="text/css" href="css/style.min.css")
-.container-fluid#gacha_main
-  .row
-    .col-xs-12.col-sm-6.col-md-4.col-xl-3
-      .card.bg-primary.text-white
-        .card-body
-          .d-flex.justify-content-between
-            span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
-              i.mdi.mdi-currency-cny.fs-4
-            span#totalGachaCount.fs-4.scroll-numbers 
-          .text-end 今日抽卡
-    .col-xs-12.col-sm-6.col-md-4.col-xl-3
-      .card.bg-danger.text-white
-        .card-body
-          .d-flex.justify-content-between
-            span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
-              i.mdi.mdi-account.fs-4
-            span#eventGachaCount.fs-4.scroll-numbers 000
-          .text-end 活动卡池
-    .col-xs-12.col-sm-6.col-md-4.col-xl-3
-      .card.bg-success.text-white
-        .card-body
-          .d-flex.justify-content-between
-            span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
-              i.mdi.mdi-arrow-down-bold.fs-4
-            span#residentGachaCount.fs-4.scroll-numbers 000
-          .text-end 常驻卡池
-    .col-xs-12.col-sm-6.col-md-4.col-xl-3
-      .card.bg-purple.text-white
-        .card-body
-          .d-flex.justify-content-between
-            span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
-              i.mdi.mdi-comment-outline.fs-4
-            span#WEAPONGachaCount.fs-4.scroll-numbers 000
-          .text-end 武器卡池
-    .col-xs-12.col-sm-6.col-md-4.col-xl-6
-      .card.bg-pink.text-white
-        .card-body
-          .d-flex.justify-content-between
-            span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
-              i.mdi.mdi-comment-outline.fs-4
-            span#GachaCountTotal.fs-4.scroll-numbers 000
-          .text-end 累计抽卡
-    .col-xs-12.col-sm-6.col-md-4.col-xl-6
-      .card.bg-yellow.text-white
-        .card-body
-          .d-flex.justify-content-between
-            span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
-              i.mdi.mdi-comment-outline.fs-4
-            span#GoldenGachaCount.fs-4.scroll-numbers 000
-          .text-end 五星总数
+extends layout
 
-  .row
-    .col-xs-12.col-md-6.golden-gacha.card.border-primary
-      span.card-header.text-center 活动卡池1
-      .card-body#event-gacha-progress(style="max-height:70vh;overflow: scroll;scrollbar-width: none;")
-    .col-xs-12.col-md-6.golden-gacha.card.border-primary
-      span.card-header.text-center 活动卡池2
-      .card-body#eventB-gacha-progress(style="max-height:70vh;overflow: scroll;scrollbar-width: none;")
+block content
+  .container-fluid#gacha_main
+    .row
+      .col-xs-12.col-sm-6.col-md-4.col-xl-3
+        .card.bg-primary.text-white
+          .card-body
+            .d-flex.justify-content-between
+              span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
+                i.mdi.mdi-cards-outline.fs-4
+              span#totalGachaCount.fs-4.scroll-numbers 
+            .text-end 今日抽卡
+      .col-xs-12.col-sm-6.col-md-4.col-xl-3
+        .card.bg-danger.text-white
+          .card-body
+            .d-flex.justify-content-between
+              span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
+                i.mdi.mdi-heart.fs-4
+              span#eventGachaCount.fs-4.scroll-numbers 000
+            .text-end 活动卡池
+      .col-xs-12.col-sm-6.col-md-4.col-xl-3
+        .card.bg-success.text-white
+          .card-body
+            .d-flex.justify-content-between
+              span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
+                i.mdi.mdi-heart-half-full.fs-4
+              span#residentGachaCount.fs-4.scroll-numbers 000
+            .text-end 常驻卡池
+      .col-xs-12.col-sm-6.col-md-4.col-xl-3
+        .card.bg-purple.text-white
+          .card-body
+            .d-flex.justify-content-between
+              span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
+                i.mdi.mdi-knife-military.fs-4
+              span#WEAPONGachaCount.fs-4.scroll-numbers 000
+            .text-end 武器卡池
+      .col-xs-12.col-sm-6.col-md-4.col-xl-6
+        .card.bg-pink.text-white
+          .card-body
+            .d-flex.justify-content-between
+              span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
+                i.mdi.mdi-counter.fs-4
+              span#GachaCountTotal.fs-4.scroll-numbers 000
+            .text-end 累计抽卡
+      .col-xs-12.col-sm-6.col-md-4.col-xl-6
+        .card.bg-yellow.text-white
+          .card-body
+            .d-flex.justify-content-between
+              span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
+                i.mdi.mdi-gold.fs-4
+              span#GoldenGachaCount.fs-4.scroll-numbers 000
+            .text-end 五星总数
 
-    .col-xs-12.col-md-6.golden-gacha.card.border-primary
-      span.card-header.text-center 常驻卡池
-      .card-body#resident-gacha-progress(style="max-height:70vh;overflow: scroll;scrollbar-width: none;")
-    .col-xs-12.col-md-6.golden-gacha.card.border-primary
-      span.card-header.text-center 武器卡池
-      .card-body#WEAPONG-gacha-progress(style="max-height:70vh;overflow: scroll;scrollbar-width: none;")
-       
-       
+    .row
+      .col-xs-12.col-md-6.golden-gacha.px-3.p-3
+        .card.border-primary
+          span.card-header.text-center 活动卡池1
+          .card-body#event-gacha-progress(style="max-height:70vh;overflow: scroll;scrollbar-width: none;")
 
-  .row
-    .col-12
-      .card
-        .card-header
-          .card-title 祈愿占比
-        .card-body
-          canvas.js-chartjs-bars
-    .col-12
-      .card
-        .card-header
-          .card-title#gacha_chart_title 欧气曲线
-        .card-body
-          canvas.js-chartjs-lines
+      .col-xs-12.col-md-6.golden-gacha.px-3.p-3
+        .card.border-primary
+          span.card-header.text-center 活动卡池2
+          .card-body#eventB-gacha-progress(style="max-height:70vh;overflow: scroll;scrollbar-width: none;")
+
+      .col-xs-12.col-md-6.golden-gacha.px-3.p-3
+        .card.border-primary
+          span.card-header.text-center 常驻卡池
+          .card-body#resident-gacha-progress(style="max-height:70vh;overflow: scroll;scrollbar-width: none;")
+
+      .col-xs-12.col-md-6.golden-gacha.px-3.p-3
+        .card.border-primary
+          span.card-header.text-center 武器卡池
+          .card-body#WEAPONG-gacha-progress(style="max-height:70vh;overflow: scroll;scrollbar-width: none;")
+        
+        
+
+    .row
+      .col-12
+        .card
+          .card-header
+            .card-title 五星祈愿占比
+          .card-body
+            canvas.js-chartjs-bars
+      .col-12
+        .card
+          .card-header
+            .card-title#gacha_chart_title(data-bs-toggle="popover" data-bs-placement="top"  data-bs-trigger="hover focus" data-bs-content="因为数据量大了会看不清，仅显示1000次祈愿内五星曲线") 欧气曲线
+          .card-body
+            canvas.js-chartjs-lines
+    
+  .container-fluid#gacha_userlogin
+    .row.p-2.px-3
+      form.row.row-cols-lg-auto.g-3.align-items-center(action="/main" method="post",novalidate)
+        .col-8.col-lg-8
+          label.visually-hidden(for="inlineFormInputGroupUsername") UID
+          .input-group
+            .input-group-text 
+              span.mdi.mdi-card-account-details-outline
+            input.form-control#inlineFormInputGroupUsername(type="number", placeholder="UID" name="UID",required)
+            .invalid-feedback 扑空啦，快重来~
   
-.container-fluid#gacha_userlogin
-  .row
-    form.row.row-cols-lg-auto.g-3.align-items-center(action="/main" method="post")
-      .col-xs-9.col-md-9.col-xl-10
-        label.visually-hidden(for="inlineFormInputGroupUsername") UID
-        .input-group
-          .input-group-text 
-            span.mdi.mdi-card-account-details-outline
-          input.form-control#inlineFormInputGroupUsername(type="number", placeholder="UID" name="UID")            
-      .col-xs-3.col-md-3.col-xl-2
-        button.btn.btn-primary(type="submit") 查询
-  .row
-    .card.border-primary.mb-3.col-12
-      .card-header 抽卡记录系统的一些须知
-      .card-body.text-primary
-        h5.card-title 祝您抽卡连金！！！
-        p.card-text 本系统直接连接数据库操作，无需导入任何数据即可使用。您只需要输入您的UID即可查询您的抽卡记录，系统没有做任何限制。祝您抽卡连金！！！
-script(type="text/javascript" src="js/jquery.min.js")
-script(type="text/javascript" src="js/popper.min.js")
-script(type="text/javascript" src="js/bootstrap.min.js")
-script(type="text/javascript" src="js/chart.min.js")
+  
+        
+        .col-4.col-lg-4
+            button.btn.btn-primary.btn-round(type="submit" style="width: 100%;") 查询
+    .row.p-3.px-3
+      .card.border-primary.mb-3.col-12
+        .card-header 抽卡记录系统的一些须知
+        .card-body.text-primary
+          h5.card-title 祝您抽卡连金！！！
+          p.card-text 本系统直接连接数据库操作，无需导入任何数据即可使用。您只需要输入您的UID即可查询您的抽卡记录，系统没有做任何限制。祝您抽卡连金！！！
 
-// 引入chart插件js
-script(type="text/javascript" src="js/main.min.js")
-script(type="text/javascript").
-
-  $(document).ready(function(e) {
-    var $dashChartBarsCnt = jQuery('.js-chartjs-bars')[0].getContext('2d'),
-      $dashChartLinesCnt = jQuery('.js-chartjs-lines')[0].getContext('2d');
-
-      var status = !{status};
     
-    if(status){
-        $("#gacha_main").css("display","");
-        $("#gacha_userlogin").css("display","none");
-        $("#UID_or",parent.document).text("UID:!{UID}");
-        //- console.log(status);
-      }else{
-        $("#gacha_main").css("display","none");
-        $("#gacha_userlogin").css("display","");
-        //- console.log(status);
-      };
-   
-
-    const Crooked = [1003,1016,1026,1035,1041,1042,1069,1079,11501,11502,12501,12502,13502,13505,14501,14502,15501,15502];
-
-    $("#totalGachaCount").text(!{resultstoday});//今日抽卡
-    //- console.log(!{resultstoday})
-    let eventGachaCount = $("#eventGachaCount").text(parseInt(!{yellowItemsCount301})+parseInt(!{yellowItemsCount400}));//活动卡池
-    let residentGachaCount = $("#residentGachaCount").text(!{yellowItemsCount200});//常驻卡池
-    let WEAPONGachaCount = $("#WEAPONGachaCount").text(!{yellowItemsCount301});//武器卡池
-    let GachaCountTotal = $("#GachaCountTotal").text(!{resultsgachacount});//累计抽卡
-    let GoldenGachaCount = $("#GoldenGachaCount").text(!{yellowItemsCount301}+!{yellowItemsCount302}+!{yellowItemsCount100}+!{yellowItemsCount400}+!{yellowItemsCount200});//出金总数
-    //抽卡统计表
-    const intervals301 = !{JSON.stringify(intervals301)};
-    const intervals302 = !{JSON.stringify(intervals302)};
-    const intervals100 = !{JSON.stringify(intervals100)};
-    const intervals400 = !{JSON.stringify(intervals400)};
-    const intervals200 = !{JSON.stringify(intervals200)};
-    const intervalsYellowTotal = !{JSON.stringify(intervalsYellowTotal)};
-
-    const yellowItems301 = !{JSON.stringify(yellowItems301)};
-    const yellowItems302 = !{JSON.stringify(yellowItems302)};
-    const yellowItems100 = !{JSON.stringify(yellowItems100)};
-    const yellowItems400 = !{JSON.stringify(yellowItems400)};
-    const yellowItems200 = !{JSON.stringify(yellowItems200)};
-    const yellowItemsYellowTotal = !{JSON.stringify(yellowItemsYellowTotal)};
-
-    const postYellowCount301 = !{postYellowCount301};
-    const postYellowCount302 = !{postYellowCount302};
-    const postYellowCount100 = !{postYellowCount100};
-    const postYellowCount400 = !{postYellowCount400};
-    const postYellowCount200 = !{postYellowCount200};
-    const postYellowCountYellowTotal = !{postYellowCountYellowTotal};
-
-    GachaProgress(intervals301,postYellowCount301,yellowItems301,"#event-gacha-progress",301);
-    GachaProgress(intervals302,postYellowCount302,yellowItems302,"#WEAPONG-gacha-progress",302);
-    GachaProgress(intervals400,postYellowCount400,yellowItems400,"#eventB-gacha-progress",400);
-    GachaProgress(intervals200,postYellowCount200,yellowItems200,"#resident-gacha-progress",200);
-   
 
 
-    localStorage.setItem("UID","!{UID}");
+  script(type="text/javascript" src="js/jquery.min.js")
+  script(type="text/javascript" src="js/popper.min.js")
+  script(type="text/javascript" src="js/bootstrap.min.js")
+  script(type="text/javascript" src="js/chart.min.js")
+  script(type="text/javascript" src="js/lyear-loading.js")
+
+  // 引入chart插件js
+  script(type="text/javascript" src="js/main.min.js")
+  script(type="text/javascript").
+
+    $(document).ready(function(e) {
+      var $dashChartBarsCnt = jQuery('.js-chartjs-bars')[0].getContext('2d'),
+        $dashChartLinesCnt = jQuery('.js-chartjs-lines')[0].getContext('2d');
+
+        var status = !{status};
+
+        if(localStorage.getItem("UID")!=null && localStorage.getItem("UID")!=""){
+          //如果UID存在，自动填充并提交
+          $("#inlineFormInputGroupUsername").val(localStorage.getItem("UID"));
+          $("#gacha_userlogin form").submit();
+        }
+      
+      if(status){
+          $("#gacha_main").css("display","");
+          $("#gacha_userlogin").css("display","none");
+          $("#UID_or",parent.document).text("UID:!{UID}");
+          $("#username",parent.document).text("!{username}");
+        }else{
+          $("#gacha_main").css("display","none");
+          $("#gacha_userlogin").css("display","");
+          $("#inlineFormInputGroupUsername").focus();
+          submitLoading();
+        };
+
+      function submitLoading(){
+        //当表格发生提交事件
+        $("#gacha_userlogin form").submit(function(){
+          if (!this.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.classList.add('was-validated');
+          }else{
+            status?console.log("已加载祈愿数据！"):loading();
+          }
+        });
+      }
     
-    //-  封装方法调用
-    function GachaProgress(intervals,postYellowCount,yellowItems,gacha_progress_id,gachaType){
-      if(intervals.length>0){
-        $(gacha_progress_id).append(`
-              <div style="margin:10px 0"><span class="badge bg-info">已祈愿</span><div style="height:20px;" class="progress"><div role="progressbar" style="width: `+postYellowCount/0.9+`%;border-top-right-radius:10px;border-bottom-right-radius:10px;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" class="progress-bar `+ (postYellowCount>80?`bg-danger`:(postYellowCount>60?`bg-warning`:`bg-success`)) + ` progress-bar-striped progress-bar-animated">`+postYellowCount+`</div></div></div>
-          `);
-        for(let i=intervals.length-1;i>=0;i--){
+
+      const Crooked = [1003,1016,1026,1035,1041,1042,1069,1079,11501,11502,12501,12502,13502,13505,14501,14502,15501,15502];
+
+      $("#totalGachaCount").text(!{resultstoday});//今日抽卡
+      //- console.log(!{resultstoday})
+      let eventGachaCount = $("#eventGachaCount").text(parseInt(!{yellowItemsCount301})+parseInt(!{yellowItemsCount400}));//活动卡池
+      let residentGachaCount = $("#residentGachaCount").text(!{yellowItemsCount200});//常驻卡池
+      let WEAPONGachaCount = $("#WEAPONGachaCount").text(!{yellowItemsCount301});//武器卡池
+      let GachaCountTotal = $("#GachaCountTotal").text(!{resultsgachacount});//累计抽卡
+      let GoldenGachaCount = $("#GoldenGachaCount").text(!{yellowItemsCount301}+!{yellowItemsCount302}+!{yellowItemsCount100}+!{yellowItemsCount400}+!{yellowItemsCount200});//出金总数
+      //抽卡统计表
+      const intervals301 = !{JSON.stringify(intervals301)};
+      const intervals302 = !{JSON.stringify(intervals302)};
+      const intervals100 = !{JSON.stringify(intervals100)};
+      const intervals400 = !{JSON.stringify(intervals400)};
+      const intervals200 = !{JSON.stringify(intervals200)};
+      const intervalsYellowTotal = !{JSON.stringify(intervalsYellowTotal)};
+
+      const yellowItems301 = !{JSON.stringify(yellowItems301)};
+      const yellowItems302 = !{JSON.stringify(yellowItems302)};
+      const yellowItems100 = !{JSON.stringify(yellowItems100)};
+      const yellowItems400 = !{JSON.stringify(yellowItems400)};
+      const yellowItems200 = !{JSON.stringify(yellowItems200)};
+      const yellowItemsYellowTotal = !{JSON.stringify(yellowItemsYellowTotal)};
+
+      const postYellowCount301 = !{postYellowCount301};
+      const postYellowCount302 = !{postYellowCount302};
+      const postYellowCount100 = !{postYellowCount100};
+      const postYellowCount400 = !{postYellowCount400};
+      const postYellowCount200 = !{postYellowCount200};
+      const postYellowCountYellowTotal = !{postYellowCountYellowTotal};
+
+      GachaProgress(intervals301,postYellowCount301,yellowItems301,"#event-gacha-progress",301);
+      GachaProgress(intervals302,postYellowCount302,yellowItems302,"#WEAPONG-gacha-progress",302);
+      GachaProgress(intervals400,postYellowCount400,yellowItems400,"#eventB-gacha-progress",400);
+      GachaProgress(intervals200,postYellowCount200,yellowItems200,"#resident-gacha-progress",200);
+    
+
+
+      localStorage.setItem("UID","!{UID}");
+      
+      //-  封装方法调用
+      function GachaProgress(intervals,postYellowCount,yellowItems,gacha_progress_id,gachaType){
+        if(intervals.length>0){
           $(gacha_progress_id).append(`
-              <div style="margin:8px 0;position: relative;"><span class="badge bg-info">`+ (yellowItems[i+1][0]) +`</span>`+((Crooked.includes((yellowItems[(i+1)]["itemID"]))&&gachaType!=200)?`<span class="badge text-danger" style="font-size:20px;position:absolute;right:-25px;top:4px;border-radius:50%;width:36px;height:36px;font-weight:900;border:1px solid red;padding:0;text-align:center;line-height:36px;transform:rotate(20deg)">歪</span>`:"") +`<div style="height:20px;" class="progress"><div role="progressbar" style="width: `+((intervals[i]<2?intervals[i]++:intervals[i])/0.9)+`%;border-top-right-radius:10px;border-bottom-right-radius:10px;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" class="progress-bar `+ ((Crooked.includes((yellowItems[(i+1)]["itemID"]))&&gachaType!=200)?`bg-danger`:(intervals[i]>70?`bg-warning`:`bg-success`)) + ` progress-bar-striped progress-bar-animated">`+intervals[i]+`</div></div></div>
-          `);
+                <div style="margin:10px 0"><span class="badge bg-info">已祈愿</span><div style="height:20px;" class="progress"><div role="progressbar" style="width: `+postYellowCount/0.9+`%;border-top-right-radius:10px;border-bottom-right-radius:10px;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" class="progress-bar `+ (postYellowCount>80?`bg-danger`:(postYellowCount>60?`bg-warning`:`bg-success`)) + ` progress-bar-striped progress-bar-animated">`+postYellowCount+`</div></div></div>
+            `);
+          for(let i=intervals.length-1;i>=0;i--){
+            $(gacha_progress_id).append(`
+                <div style="margin:8px 0;position: relative;"><span class="badge bg-info">`+ (yellowItems[i+1][0]) +`</span>`+((Crooked.includes((yellowItems[(i+1)]["itemID"]))&&gachaType!=200)?`<span class="badge text-danger" style="font-size:20px;position:absolute;right:-25px;top:4px;border-radius:50%;width:36px;height:36px;font-weight:900;border:1px solid red;padding:0;text-align:center;line-height:36px;transform:rotate(20deg)">歪</span>`:"") +`<div style="height:20px;" class="progress"><div role="progressbar" style="width: `+((intervals[i]<2?intervals[i]++:intervals[i])/0.9)+`%;border-top-right-radius:10px;border-bottom-right-radius:10px;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" class="progress-bar `+ ((Crooked.includes((yellowItems[(i+1)]["itemID"]))&&gachaType!=200)?`bg-danger`:(intervals[i]>70?`bg-warning`:`bg-success`)) + ` progress-bar-striped progress-bar-animated">`+intervals[i]+`</div></div></div>
+            `);
+          }
         }
       }
-    }
-    let GoldItem = [];
-    let GoldItemIndex = [];
-    if(intervalsYellowTotal.length>0){
-      for(let i = intervalsYellowTotal.length-1;i>=0;i--){
-        let itemID = yellowItemsYellowTotal[i]["itemID"];
-        if(!Crooked.includes(itemID)){
-          GoldItem.push(yellowItemsYellowTotal[i]["0"]);
-          GoldItemIndex.push(intervalsYellowTotal[i]);
+      function loading(){
+        var load = $('body').lyearloading({
+            opacity: 0.5,
+            spinnerSize: 'lg',
+            spinnerText: '服务器查询中...',
+            textColorClass: 'text-info',
+            spinnerColorClass: 'text-info'
+        });
+      }
+      let GoldItem = [];
+      let GoldItemIndex = [];
+      if(intervalsYellowTotal.length>0){
+        for(let i = intervalsYellowTotal.length-1;i>=0;i--){
+          let itemID = yellowItemsYellowTotal[i]["itemID"];
+          if(!Crooked.includes(itemID)){
+            GoldItem.push(yellowItemsYellowTotal[i]["0"]);
+            GoldItemIndex.push(intervalsYellowTotal[i]);
+          }
         }
       }
-    }
 
 
 
 
-     var $dashChartBarsData = {
-      labels: ['活动池1', '活动池2', '武器池', '常驻池', '新手池'],
-      datasets: [{
-        label: '五星祈愿',
-        borderWidth: 1,
-        borderRadius: 100,
-        borderColor: 'rgba(0, 0, 0, 0)', 
-        backgroundColor: 'rgba(0, 123, 255,0.5)',
-        hoverBackgroundColor: "rgba(0, 123, 255, 0.7)",
-        hoverBorderColor: "rgba(0, 0, 0, 0)", 
-        data: [!{yellowItemsCount301}, !{yellowItemsCount400}, !{yellowItemsCount302}, !{yellowItemsCount200}, !{yellowItemsCount100}]
-      }],
-    };
-    $("#gacha_chart_title").text(((GoldItemIndex.filter(number => number > 50).length)>(GoldItemIndex.filter(number => number < 50).length))?"小非酋":"欧皇本皇")
-    var $dashChartLinesData = {
-      labels: GoldItem,
-      datasets: [{
-        label: '五星详情',
-        data: GoldItemIndex,
-        borderColor: '#007bff',
-        backgroundColor: 'rgba(0, 123, 255, 0.175)', 
-        borderWidth: 1,
-        fill: false,
-        lineTension: 0.5
-      }]
-    };
+      var $dashChartBarsData = {
+        labels: ['活动池1', '活动池2', '武器池', '常驻池', '新手池'],
+        datasets: [{
+          label: '五星祈愿',
+          borderWidth: 1,
+          borderRadius: 100,
+          borderColor: 'rgba(0, 0, 0, 0)', 
+          backgroundColor: 'rgba(0, 123, 255,0.5)',
+          hoverBackgroundColor: "rgba(0, 123, 255, 0.7)",
+          hoverBorderColor: "rgba(0, 0, 0, 0)", 
+          data: [!{yellowItemsCount301}, !{yellowItemsCount400}, !{yellowItemsCount302}, !{yellowItemsCount200}, !{yellowItemsCount100}]
+        }],
+      };
+      $("#gacha_chart_title").html(((GoldItemIndex.filter(number => number > 50).length)>(GoldItemIndex.filter(number => number < 50).length))?"可爱小非酋（1000次内）":"呆萌小欧皇（1000次内）")
+      var $dashChartLinesData = {
+        labels: GoldItem,
+        datasets: [{
+          label: '祈愿',
+          data: GoldItemIndex,
+          borderColor: '#007bff',
+          backgroundColor: 'rgba(0, 123, 255, 0.175)', 
+          borderWidth: 1,
+          fill: false,
+          lineTension: 0.5
+        }]
+      };
 
-    new Chart($dashChartBarsCnt, {
-      type: 'bar',
-      data: $dashChartBarsData
+      new Chart($dashChartBarsCnt, {
+        type: 'bar',
+        data: $dashChartBarsData
+
+      });
+
+      var myLineChart = new Chart($dashChartLinesCnt, {
+        type: 'line',
+        data: $dashChartLinesData
+      });
 
     });
-
-    var myLineChart = new Chart($dashChartLinesCnt, {
-      type: 'line',
-      data: $dashChartLinesData
-    });
-
-  });
