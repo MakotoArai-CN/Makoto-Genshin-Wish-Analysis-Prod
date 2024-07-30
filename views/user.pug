@@ -1,0 +1,21 @@
+//- extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  div 这是用户界面
+  form(action='/users', method='post')
+      label(for='username') 用户名:
+      input#username(name='username', type='text')
+      button(type='submit') 提交
+
+  script(type="text/javascript").
+    window.onload = function(){
+      var yellowItemsCount301 = !{yellowItemsCount301}; // 使用非转义语法
+      var yellowItems301 = !{JSON.stringify(yellowItems301)};
+      var intervals301 = !{JSON.stringify(intervals301)}
+      
+      console.log(yellowItemsCount301);
+      console.log(yellowItems301);
+      console.log(intervals301);
+    };
