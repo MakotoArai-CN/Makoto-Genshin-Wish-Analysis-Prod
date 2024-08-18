@@ -1,6 +1,6 @@
 {
   "name": "Makoto-Genshin-Wish-Analysis-Prod",
-  "version": "0.0.3_Release",
+  "version": "0.0.3_last",
   "private": true,
   "icon": "./icon.ico",
   "bin":"./bin/www",
