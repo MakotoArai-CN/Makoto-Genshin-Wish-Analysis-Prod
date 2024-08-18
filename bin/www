@@ -84,17 +84,18 @@ function onError(error) {
  */
 
 function onListening() {
+  const {console_color} = require("../config.js");
   var addr = server.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-  console.log(String.raw` __  __       _         _           _____                _     _        __          ___     _ `);
-  console.log(String.raw`|  \/  |     | |       | |         / ____|              | |   (_)       \ \        / (_)   | | `);
-  console.log(String.raw`| \  / | __ _| | _____ | |_ ___   | |  __  ___ _ __  ___| |__  _ _ __    \ \  /\  / / _ ___| |__ `);
-  console.log(String.raw`| |\/| |/ _\ | |/ / _ \| __/ _ \  | | |_ |/ _ \ '_ \/ __| '_ \| | '_ \    \ \/  \/ / | / __| '_ \ `);
-  console.log(String.raw`| |  | | (_| |   < (_) | || (_) | | |__| |  __/ | | \__ \ | | | | | | |    \  /\  /  | \__ \ | | |`);
-  console.log(String.raw`|_|  |_|\__,_|_|\_\___/ \__\___/   \_____|\___|_| |_|___/_| |_|_|_| |_|     \/  \/   |_|___/_| |_|`);
-  console.log("\nWelcome to the Genshin Impact Command Server Prayer Statistics System!");
-  console.log("Please visit http://127.0.0.1:"+port);
+  console.log(console_color.red,String.raw` __  __       _         _        ` , console_color.blue, String.raw`   _____                _     _       ` , console_color.green, String.raw` __          ___     _ `);
+  console.log(console_color.red,String.raw`|  \/  |     | |       | |       ` , console_color.blue, String.raw`  / ____|              | |   (_)      ` , console_color.green, String.raw` \ \        / (_)   | | `);
+  console.log(console_color.red,String.raw`| \  / | __ _| | _____ | |_ ___  ` , console_color.blue, String.raw` | |  __  ___ _ __  ___| |__  _ _ __  ` , console_color.green, String.raw`  \ \  /\  / / _ ___| |__ `);
+  console.log(console_color.red,String.raw`| |\/| |/ _\ | |/ / _ \| __/ _ \ ` , console_color.blue, String.raw` | | |_ |/ _ \ '_ \/ __| '_ \| | '_ \ ` , console_color.green, String.raw`   \ \/  \/ / | / __| '_ \ `);
+  console.log(console_color.red,String.raw`| |  | | (_| |   < (_) | || (_) |` , console_color.blue, String.raw` | |__| |  __/ | | \__ \ | | | | | | |` , console_color.green, String.raw`    \  /\  /  | \__ \ | | |`);
+  console.log(console_color.red,String.raw`|_|  |_|\__,_|_|\_\___/ \__\___/ ` , console_color.blue, String.raw`  \_____|\___|_| |_|___/_| |_|_|_| |_|` , console_color.green, String.raw`     \/  \/   |_|___/_| |_|`, console_color.white);
+  console.log(console_color.white,"\nWelcome to the Genshin Impact Command Server Prayer Statistics System!");
+  console.log("Server is running http://127.0.0.1:"+port);
 }
