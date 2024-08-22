@@ -6,25 +6,34 @@ block content
       // 左侧导航
       aside.lyear-layout-sidebar
         //  logo 
-        #logo.sidebar-header
-          a(href="/")
-            img(src="images/logo-sidebar"+daytime+".png", title="Makoto-Genshin-Wish", alt="Makoto-Genshin-Wish")
+        #logo.custom-header
+          a
+            img(src="images/logo-sidebar"+daytime+".webp", title="Makoto-Genshin-Wish", alt="Makoto-Genshin-Wish")
         .lyear-layout-sidebar-info.lyear-scroll
           nav.sidebar-main
             ul.nav-drawer
               li.nav-item.active
-                a.multitabs#default-page(href="main")
+                a.multitabs#default-page(href="/main")
                   i.mdi.mdi-card-search-outline
                   span 祈愿
-              //- li.nav-item.active.nav-item-has-subnav
-              //-   a.multitabs#default-page
-              //-     i.mdi.mdi-panorama-sphere
-              //-     span 账号
-                //- ul.nav.nav-subnav
-                //-   li
-                //-     a.multitabs(href="/404.html") 待开发……
-                //-   li
-                //-     a.multitabs(href="/404.html") 数据克隆
+              li.nav-item.nav-item-has-subnav
+                a.multitabs(href="javascript:void(0)")
+                  i.mdi.mdi-panorama-sphere
+                  span 原神下载
+                ul.nav.nav-subnav
+                  li
+                    a.multitabs(href="/404.html") 客户端
+                  li
+                    a.multitabs(href="/404.html") 服务端
+              li.nav-item.nav-item-has-subnav
+                a.multitabs(href="javascript:void(0)")
+                  i.mdi.mdi-panorama-sphere
+                  span 崩铁下载
+                ul.nav.nav-subnav
+                  li
+                    a.multitabs(href="/404.html") 客户端
+                  li
+                    a.multitabs(href="/404.html") 服务端
                 //-   li
                 //-     a.multitabs(href="/404.html") 添加账号
                 //-   li
@@ -36,9 +45,9 @@ block content
           .sidebar-footer.text-center
             p.copyright
               span Copyright © 2024. 
-              a(target="_blank", href="https://blog.ciy.cool") Makoto
+              a(target="_blank", href="https://blog.ciy.cool" alt="MakotoArai") MakotoArai
               span All rights reserved.
-            p.text-info !{type}
+            p !{type}
               br
               span(title='版本：' + version) 项目地址:
               a(href="https://gitee.com/MakotoArai-CN/Makoto-Genshin-Wish-Analysis-Prod" target="_blank" title="本项目完全开源项目，欢迎各位开发者参与贡献") Gitee &emsp;|&emsp;
@@ -57,24 +66,6 @@ block content
               span.lyear-toggler-bar
           span#UID_or 愿您祈愿连金！
           ul.navbar-right.d-flex.align-items-center
-            // 顶部消息部分
-            //- li.dropdown.dropdown-notice
-            //-   span.position-relative.icon-item(data-bs-toggle="dropdown")
-            //-     i.mdi.mdi-bell-outline.fs-5
-            //-     span.position-absolute.translate-middle.badge.bg-danger 7
-            //-   .dropdown-menu.dropdown-menu-end
-            //-     .lyear-notifications
-            //-       .lyear-notifications-title.d-flex.justify-content-between(data-stoppropagation="true")
-            //-         span 你有 10 条未读消息
-            //-         a(href="#!") 查看全部
-            //-       .lyear-notifications-info.lyear-scroll
-            //-         a.dropdown-item(href="#!", title="树莓派销量猛增，疫情期间居家工作学习、医疗领域都需要它") 树莓派销量猛增，疫情期间居家工作学习、医疗领域都需要它
-            //-         a.dropdown-item(href="#!", title="GNOME 用户体验团队将为 GNOME Shell 提供更多改进") GNOME 用户体验团队将为 GNOME Shell 提供更多改进
-            //-         a.dropdown-item(href="#!", title="Linux On iPhone 即将面世，支持 iOS 的双启动") Linux On iPhone 即将面世，支持 iOS 的双启动
-            //-         a.dropdown-item(href="#!", title="GitHub 私有仓库完全免费面向团队提供") GitHub 私有仓库完全免费面向团队提供
-            //-         a.dropdown-item(href="#!", title="Wasmtime 为 WebAssembly 增加 Go 语言绑定") Wasmtime 为 WebAssembly 增加 Go 语言绑定
-            //-         a.dropdown-item(href="#!", title="红帽借“订阅”成开源一哥，首创者 Cormier 升任总裁") 红帽借“订阅”成开源一哥，首创者 Cormier 升任总裁
-            //-         a.dropdown-item(href="#!", title="Zend 宣布推出两项 PHP 新产品") Zend 宣布推出两项 PHP 新产品
             // End 顶部消息部分
             // 切换主题配色
             li.dropdown.dropdown-skin
@@ -87,114 +78,19 @@ block content
                   .form-check.form-check-inline
                     input.form-check-input#site_theme_1(type="radio", name="site_theme", value="default", checked)
                     label.form-check-label(for="site_theme_1")
-                  .form-check.form-check-inline
-                    input.form-check-input#site_theme_2(type="radio", name="site_theme", value="translucent-green")
-                    label.form-check-label(for="site_theme_2")
-                  .form-check.form-check-inline
-                    input.form-check-input#site_theme_3(type="radio", name="site_theme", value="translucent-blue")
-                    label.form-check-label(for="site_theme_3")
-                  .form-check.form-check-inline
-                    input.form-check-input#site_theme_4(type="radio", name="site_theme", value="translucent-yellow")
-                    label.form-check-label(for="site_theme_4")
-                  .form-check.form-check-inline
-                    input.form-check-input#site_theme_5(type="radio", name="site_theme", value="translucent-red")
-                    label.form-check-label(for="site_theme_5")
-                  .form-check.form-check-inline
-                    input.form-check-input#site_theme_6(type="radio", name="site_theme", value="translucent-pink")
-                    label.form-check-label(for="site_theme_6")
-                  .form-check.form-check-inline
-                    input.form-check-input#site_theme_7(type="radio", name="site_theme", value="translucent-cyan")
-                    label.form-check-label(for="site_theme_7")
-                  .form-check.form-check-inline
                     input.form-check-input#site_theme_8(type="radio", name="site_theme", value="dark")
                     label.form-check-label(for="site_theme_8")
-                li.lyear-skin-title
-                  p LOGO
-                li.lyear-skin-li.clearfix
-                  .form-check.form-check-inline
-                    input.form-check-input#logo_bg_1(type="radio", name="logo_bg", value="default", checked)
-                    label.form-check-label(for="logo_bg_1")
-                  .form-check.form-check-inline
-                    input.form-check-input#logo_bg_2(type="radio", name="logo_bg", value="color_2")
-                    label.form-check-label(for="logo_bg_2")
-                  .form-check.form-check-inline
-                    input.form-check-input#logo_bg_3(type="radio", name="logo_bg", value="color_3")
-                    label.form-check-label(for="logo_bg_3")
-                  .form-check.form-check-inline
-                    input.form-check-input#logo_bg_4(type="radio", name="logo_bg", value="color_4")
-                    label.form-check-label(for="logo_bg_4")
-                  .form-check.form-check-inline
-                    input.form-check-input#logo_bg_5(type="radio", name="logo_bg", value="color_5")
-                    label.form-check-label(for="logo_bg_5")
-                  .form-check.form-check-inline
-                    input.form-check-input#logo_bg_6(type="radio", name="logo_bg", value="color_6")
-                    label.form-check-label(for="logo_bg_6")
-                  .form-check.form-check-inline
-                    input.form-check-input#logo_bg_7(type="radio", name="logo_bg", value="color_7")
-                    label.form-check-label(for="logo_bg_7")
-                  .form-check.form-check-inline
-                    input.form-check-input#logo_bg_8(type="radio", name="logo_bg", value="color_8")
-                    label.form-check-label(for="logo_bg_8")
-                li.lyear-skin-title
-                  p 头部
-                li.lyear-skin-li.clearfix
-                  .form-check.form-check-inline
-                    input.form-check-input#header_bg_1(type="radio", name="header_bg", value="default", checked)
-                    label.form-check-label(for="header_bg_1")
-                  .form-check.form-check-inline
-                    input.form-check-input#header_bg_2(type="radio", name="header_bg", value="color_2")
-                    label.form-check-label(for="header_bg_2")
-                  .form-check.form-check-inline
-                    input.form-check-input#header_bg_3(type="radio", name="header_bg", value="color_3")
-                    label.form-check-label(for="header_bg_3")
-                  .form-check.form-check-inline
-                    input.form-check-input#header_bg_4(type="radio", name="header_bg", value="color_4")
-                    label.form-check-label(for="header_bg_4")
-                  .form-check.form-check-inline
-                    input.form-check-input#header_bg_5(type="radio", name="header_bg", value="color_5")
-                    label.form-check-label(for="header_bg_5")
-                  .form-check.form-check-inline
-                    input.form-check-input#header_bg_6(type="radio", name="header_bg", value="color_6")
-                    label.form-check-label(for="header_bg_6")
-                  .form-check.form-check-inline
-                    input.form-check-input#header_bg_7(type="radio", name="header_bg", value="color_7")
-                    label.form-check-label(for="header_bg_7")
-                  .form-check.form-check-inline
-                    input.form-check-input#header_bg_8(type="radio", name="header_bg", value="color_8")
-                    label.form-check-label(for="header_bg_8")
-                li.lyear-skin-title
-                  p 侧边栏
-                li.lyear-skin-li.clearfix
-                  .form-check.form-check-inline
-                    input.form-check-input#sidebar_bg_1(type="radio", name="sidebar_bg", value="default", checked)
-                    label.form-check-label(for="sidebar_bg_1")
-                  .form-check.form-check-inline
-                    input.form-check-input#sidebar_bg_2(type="radio", name="sidebar_bg", value="color_2")
-                    label.form-check-label(for="sidebar_bg_2")
-                  .form-check.form-check-inline
-                    input.form-check-input#sidebar_bg_3(type="radio", name="sidebar_bg", value="color_3")
-                    label.form-check-label(for="sidebar_bg_3")
-                  .form-check.form-check-inline
-                    input.form-check-input#sidebar_bg_4(type="radio", name="sidebar_bg", value="color_4")
-                    label.form-check-label(for="sidebar_bg_4")
-                  .form-check.form-check-inline
-                    input.form-check-input#sidebar_bg_5(type="radio", name="sidebar_bg", value="color_5")
-                    label.form-check-label(for="sidebar_bg_5")
-                  .form-check.form-check-inline
-                    input.form-check-input#sidebar_bg_6(type="radio", name="sidebar_bg", value="color_6")
-                    label.form-check-label(for="sidebar_bg_6")
-                  .form-check.form-check-inline
-                    input.form-check-input#sidebar_bg_7(type="radio", name="sidebar_bg", value="color_7")
-                    label.form-check-label(for="sidebar_bg_7")
-                  .form-check.form-check-inline
-                    input.form-check-input#sidebar_bg_8(type="radio", name="sidebar_bg", value="color_8")
-                    label.form-check-label(for="sidebar_bg_8")
             // End 切换主题配色
             // 个人头像内容
             li.dropdown
-              a.dropdown-toggle(href="javascript:void(0)", data-bs-toggle="dropdown")
-                img.avatar-md.rounded-circle(src="images/users/avatar.jpg", alt="笔下光年")
-                span#username(style="margin-left: 10px;") 刻晴
+              span.dropdown-toggle(href="javascript:void(0)", data-bs-toggle="dropdown")
+                img.avatar-md.rounded-circle(
+                    src="images/users/avatar.webp",
+                    srcset="images/users/avatar-small.webp 480w,images/users/avatar-medium.webp 768w,images/users/avatar-large.webp 1024w",
+                    sizes="(max-width: 640px) 480px,(max-width: 960px) 768px,1024px",
+                    alt="avatar"
+                  )
+                span#username.text-indigo(style="margin-left: 10px;") 刻晴
               ul.dropdown-menu.dropdown-menu-end
                 li
                   button.multitabs.dropdown-item(onclick="localStorage.removeItem('UID');location.href = '/';")
