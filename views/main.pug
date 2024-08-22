@@ -1,115 +1,116 @@
 extends layout
 
 block content
-  .container-fluid#gacha_main
-    .row
-      .col-xs-12.col-sm-6.col-md-4.col-xl-3
-        .card.bg-primary.text-white
-          .card-body
-            .d-flex.justify-content-between
-              span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
-                i.mdi.mdi-cards-outline.fs-4
-              span#totalGachaCount.fs-4.scroll-numbers 
-            .text-end 今日抽卡
-      .col-xs-12.col-sm-6.col-md-4.col-xl-3
-        .card.bg-danger.text-white
-          .card-body
-            .d-flex.justify-content-between
-              span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
-                i.mdi.mdi-heart.fs-4
-              span#eventGachaCount.fs-4.scroll-numbers 000
-            .text-end 活动卡池
-      .col-xs-12.col-sm-6.col-md-4.col-xl-3
-        .card.bg-success.text-white
-          .card-body
-            .d-flex.justify-content-between
-              span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
-                i.mdi.mdi-heart-half-full.fs-4
-              span#residentGachaCount.fs-4.scroll-numbers 000
-            .text-end 常驻卡池
-      .col-xs-12.col-sm-6.col-md-4.col-xl-3
-        .card.bg-purple.text-white
-          .card-body
-            .d-flex.justify-content-between
-              span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
-                i.mdi.mdi-knife-military.fs-4
-              span#WEAPONGachaCount.fs-4.scroll-numbers 000
-            .text-end 武器卡池
-      .col-xs-12.col-sm-6.col-md-4.col-xl-6
-        .card.bg-pink.text-white
-          .card-body
-            .d-flex.justify-content-between
-              span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
-                i.mdi.mdi-counter.fs-4
-              span#GachaCountTotal.fs-4.scroll-numbers 000
-            .text-end 累计抽卡
-      .col-xs-12.col-sm-6.col-md-4.col-xl-6
-        .card.bg-yellow.text-white
-          .card-body
-            .d-flex.justify-content-between
-              span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
-                i.mdi.mdi-gold.fs-4
-              span#GoldenGachaCount.fs-4.scroll-numbers 000
-            .text-end 五星总数
+  .container-fluid
+    #gacha_main
+      .row
+        .col-xs-12.col-sm-6.col-md-4.col-xl-3
+          .card.bg-primary.text-white
+            .card-body
+              .d-flex.justify-content-between
+                span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
+                  i.mdi.mdi-cards-outline.fs-4
+                span#totalGachaCount.fs-4.scroll-numbers 
+              .text-end 今日抽卡
+        .col-xs-12.col-sm-6.col-md-4.col-xl-3
+          .card.bg-danger.text-white
+            .card-body
+              .d-flex.justify-content-between
+                span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
+                  i.mdi.mdi-heart.fs-4
+                span#eventGachaCount.fs-4.scroll-numbers 000
+              .text-end 活动卡池
+        .col-xs-12.col-sm-6.col-md-4.col-xl-3
+          .card.bg-success.text-white
+            .card-body
+              .d-flex.justify-content-between
+                span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
+                  i.mdi.mdi-heart-half-full.fs-4
+                span#residentGachaCount.fs-4.scroll-numbers 000
+              .text-end 常驻卡池
+        .col-xs-12.col-sm-6.col-md-4.col-xl-3
+          .card.bg-purple.text-white
+            .card-body
+              .d-flex.justify-content-between
+                span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
+                  i.mdi.mdi-knife-military.fs-4
+                span#WEAPONGachaCount.fs-4.scroll-numbers 000
+              .text-end 武器卡池
+        .col-xs-12.col-sm-6.col-md-4.col-xl-6
+          .card.bg-pink.text-white
+            .card-body
+              .d-flex.justify-content-between
+                span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
+                  i.mdi.mdi-counter.fs-4
+                span#GachaCountTotal.fs-4.scroll-numbers 000
+              .text-end 累计抽卡
+        .col-xs-12.col-sm-6.col-md-4.col-xl-6
+          .card.bg-yellow.text-white
+            .card-body
+              .d-flex.justify-content-between
+                span.avatar-md.rounded-circle.bg-white.bg-opacity-25.avatar-box
+                  i.mdi.mdi-gold.fs-4
+                span#GoldenGachaCount.fs-4.scroll-numbers 000
+              .text-end 五星总数
 
-    .row
-      .col-xs-12.col-md-6.golden-gacha.px-3.p-3
-        .card.border-primary
-          span.card-header.text-center 活动卡池1
-          .card-body#event-gacha-progress(style="max-height:70vh;overflow: scroll;scrollbar-width: none;")
+      .row
+        .col-xs-12.col-md-6.golden-gacha.px-3.p-3
+          .card.border-primary
+            span.card-header.text-center 活动卡池1
+            .card-body#event-gacha-progress(style="max-height:220px;overflow: scroll;scrollbar-width: none;")
 
-      .col-xs-12.col-md-6.golden-gacha.px-3.p-3
-        .card.border-primary
-          span.card-header.text-center 活动卡池2
-          .card-body#eventB-gacha-progress(style="max-height:70vh;overflow: scroll;scrollbar-width: none;")
+        .col-xs-12.col-md-6.golden-gacha.px-3.p-3
+          .card.border-primary
+            span.card-header.text-center 活动卡池2
+            .card-body#eventB-gacha-progress(style="max-height:220px;overflow: scroll;scrollbar-width: none;")
 
-      .col-xs-12.col-md-6.golden-gacha.px-3.p-3
-        .card.border-primary
-          span.card-header.text-center 常驻卡池
-          .card-body#resident-gacha-progress(style="max-height:70vh;overflow: scroll;scrollbar-width: none;")
+        .col-xs-12.col-md-6.golden-gacha.px-3.p-3
+          .card.border-primary
+            span.card-header.text-center 常驻卡池
+            .card-body#resident-gacha-progress(style="max-height:220px;overflow: scroll;scrollbar-width: none;")
 
-      .col-xs-12.col-md-6.golden-gacha.px-3.p-3
-        .card.border-primary
-          span.card-header.text-center 武器卡池
-          .card-body#WEAPONG-gacha-progress(style="max-height:70vh;overflow: scroll;scrollbar-width: none;")
-        
-        
+        .col-xs-12.col-md-6.golden-gacha.px-3.p-3
+          .card.border-primary
+            span.card-header.text-center 武器卡池
+            .card-body#WEAPONG-gacha-progress(style="max-height:220px;overflow: scroll;scrollbar-width: none;")
+          
+          
 
-    .row
-      .col-12
-        .card
-          .card-header
-            .card-title 五星祈愿占比
-          .card-body
-            canvas.js-chartjs-bars
-      .col-12
-        .card
-          .card-header
-            .card-title#gacha_chart_title(data-bs-toggle="popover" data-bs-placement="top"  data-bs-trigger="hover focus" data-bs-content="因为数据量大了会看不清，仅显示1000次祈愿内五星曲线") 欧气曲线
-          .card-body
-            canvas.js-chartjs-lines
+      .row
+        .col-12
+          .card
+            .card-header
+              .card-title 五星祈愿占比
+            .card-body
+              canvas.js-chartjs-bars
+        .col-12
+          .card
+            .card-header
+              .card-title#gacha_chart_title(data-bs-toggle="popover" data-bs-placement="top"  data-bs-trigger="hover focus" data-bs-content="因为数据量大了会看不清，仅显示1000次祈愿内五星曲线") 欧气曲线
+            .card-body
+              canvas.js-chartjs-lines
+      
+    .card#gacha_userlogin.fixed-top.p-4(style="height:100vh;")
+      .row.p-2.px-3
+        form.row.row-cols-lg-auto.g-3.align-items-center(action="/main" method="post",novalidate)
+          .col-8.col-lg-8
+            label.visually-hidden(for="inlineFormInputGroupUsername") UID
+            .input-group
+              .input-group-text 
+                span.mdi.mdi-card-account-details-outline
+              input.form-control#inlineFormInputGroupUsername(type="number", placeholder="UID" name="UID",required)
+              .invalid-feedback 扑空啦，快重来~
     
-  .container-fluid#gacha_userlogin
-    .row.p-2.px-3
-      form.row.row-cols-lg-auto.g-3.align-items-center(action="/main" method="post",novalidate)
-        .col-8.col-lg-8
-          label.visually-hidden(for="inlineFormInputGroupUsername") UID
-          .input-group
-            .input-group-text 
-              span.mdi.mdi-card-account-details-outline
-            input.form-control#inlineFormInputGroupUsername(type="number", placeholder="UID" name="UID",required)
-            .invalid-feedback 扑空啦，快重来~
-  
-  
-        
-        .col-4.col-lg-4
-            button.btn.btn-primary.btn-round(type="submit" style="width: 100%;") 查询
-    .row.p-3.px-3
-      .card.border-primary.mb-3.col-12
-        .card-header 抽卡记录系统的一些须知
-        .card-body.text-primary
-          h5.card-title 祝您抽卡连金！！！
-          p.card-text 本系统直接连接数据库操作，无需导入任何数据即可使用。您只需要输入您的UID即可查询您的抽卡记录，系统没有做任何限制。祝您抽卡连金！！！
+    
+          
+          .col-4.col-lg-4
+              button.btn.btn-primary.btn-round(type="submit" style="width: 100%;") 查询
+      .row.p-3.px-3
+        .card.border-primary.mb-3.col-12
+          .card-header 抽卡记录系统的一些须知
+          .card-body.text-primary
+            h5.card-title 祝您抽卡连金！！！
+            p.card-text 本系统直接连接数据库操作，无需导入任何数据即可使用。您只需要输入您的UID即可查询您的抽卡记录，系统没有做任何限制。祝您抽卡连金！！！
 
     
 
@@ -137,13 +138,15 @@ block content
         }
       
       if(status){
-          $("#gacha_main").css("display","");
-          $("#gacha_userlogin").css("display","none");
+          //- $("#gacha_main").show();
+          $("#gacha_userlogin").hide();
+
           $("#UID_or",parent.document).text("UID:!{UID}");
           $("#username",parent.document).text("!{username}");
         }else{
-          $("#gacha_main").css("display","none");
-          $("#gacha_userlogin").css("display","");
+          //- $("#gacha_main").hide();
+          $("#gacha_userlogin").show();
+
           $("#inlineFormInputGroupUsername").focus();
           submitLoading();
         };
@@ -237,8 +240,6 @@ block content
       }
 
 
-
-
       var $dashChartBarsData = {
         labels: ['活动池1', '活动池2', '武器池', '常驻池', '新手池'],
         datasets: [{
@@ -268,8 +269,10 @@ block content
 
       new Chart($dashChartBarsCnt, {
         type: 'bar',
-        data: $dashChartBarsData
-
+        data: $dashChartBarsData,
+        options: {
+          indexAxis: 'y'
+          }
       });
 
       var myLineChart = new Chart($dashChartLinesCnt, {

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="祈愿查询,原神,祈愿统计系统">
+    <meta name="description" content="Makoto-Genshin-Wish-Analysis-Prod是一个基于光年模板v5的祈愿统计系统">
+    <meta name="author" content="Makoto">
+    <title>祈愿统计系统</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="stylesheet" type="text/css" href="./css/materialdesignicons.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="./js/bootstrap-multitabs/multitabs.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.min.css">
+    <link rel="preload" href="images/users/avatar.webp" as="image">
+  </head>
+  <body class="bg-default">
+    <div class="lyear-layout-web">
+      <div class="lyear-layout-container">
+        <!-- 左侧导航-->
+        <aside class="lyear-layout-sidebar">
+          <!--  logo -->
+          <div class="custom-header" id="logo"><a><img src="images/logo-sidebarundefined.webp" title="Makoto-Genshin-Wish" alt="Makoto-Genshin-Wish"></a></div>
+          <div class="lyear-layout-sidebar-info lyear-scroll">
+            <nav class="sidebar-main">
+              <ul class="nav-drawer">
+                <li class="nav-item active"><a class="multitabs" id="default-page" href="/main"><i class="mdi mdi-card-search-outline"></i><span>祈愿</span></a></li>
+                <li class="nav-item nav-item-has-subnav"><a class="multitabs" href="javascript:void(0)"><i class="mdi mdi-panorama-sphere"></i><span>原神下载</span></a>
+                  <ul class="nav nav-subnav">
+                    <li><a class="multitabs" href="/404.html">客户端</a></li>
+                    <li><a class="multitabs" href="/404.html">服务端</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item nav-item-has-subnav"><a class="multitabs" href="javascript:void(0)"><i class="mdi mdi-panorama-sphere"></i><span>崩铁下载</span></a>
+                  <ul class="nav nav-subnav">
+                    <li><a class="multitabs" href="/404.html">客户端</a></li>
+                    <li><a class="multitabs" href="/404.html">服务端</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+            <div class="sidebar-footer text-center">
+              <p class="copyright"><span>Copyright © 2024. </span><a target="_blank" href="https://blog.ciy.cool" alt="MakotoArai">MakotoArai</a><span>All rights reserved.</span></p>
+              <p><br><span title="版本：undefined">项目地址:</span><a href="https://gitee.com/MakotoArai-CN/Makoto-Genshin-Wish-Analysis-Prod" target="_blank" title="本项目完全开源项目，欢迎各位开发者参与贡献">Gitee &emsp;|&emsp;</a><a href="https://github.com/MakotoArai-CN/Makoto-Genshin-Wish-Analysis-Prod" target="_blank" title="本项目完全开源项目，欢迎各位开发者参与贡献">GitHub</a><br><span> </span><a href="https://qm.qq.com/q/UPynQaekEk" target="_blank" title="QQ群：475168234">加入官方QQ群&emsp;&emsp;</a></p>
+            </div>
+          </div>
+        </aside>
+        <!-- End 左侧导航-->
+        <!-- 头部信息-->
+        <header class="lyear-layout-header">
+          <nav class="navbar">
+            <div class="navbar-left">
+              <div class="lyear-aside-toggler"><span class="lyear-toggler-bar"></span><span class="lyear-toggler-bar"></span><span class="lyear-toggler-bar"></span></div>
+            </div><span id="UID_or">愿您祈愿连金！</span>
+            <ul class="navbar-right d-flex align-items-center">
+              <!-- End 顶部消息部分-->
+              <!-- 切换主题配色-->
+              <li class="dropdown dropdown-skin"><span class="icon-item" data-bs-toggle="dropdown"><i class="mdi mdi-palette fs-5"></i></span>
+                <ul class="dropdown-menu dropdown-menu-end" data-stoppropagation="true">
+                  <li class="lyear-skin-title">
+                    <p>主题</p>
+                  </li>
+                  <li class="lyear-skin-li clearfix">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" id="site_theme_1" type="radio" name="site_theme" value="default" checked>
+                      <label class="form-check-label" for="site_theme_1"></label>
+                      <input class="form-check-input" id="site_theme_8" type="radio" name="site_theme" value="dark">
+                      <label class="form-check-label" for="site_theme_8"></label>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <!-- End 切换主题配色-->
+              <!-- 个人头像内容-->
+              <li class="dropdown"><span class="dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown"><img class="avatar-md rounded-circle" src="images/users/avatar.webp" srcset="images/users/avatar-small.webp 480w,images/users/avatar-medium.webp 768w,images/users/avatar-large.webp 1024w" sizes="(max-width: 640px) 480px,(max-width: 960px) 768px,1024px" alt="avatar"><span class="text-indigo" id="username" style="margin-left: 10px;">刻晴</span></span>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <button class="multitabs dropdown-item" onclick="localStorage.removeItem('UID');location.href = '/';"><i class="mdi mdi-account"></i><span>切换账号</span></button>
+                  </li>
+                </ul>
+              </li>
+              <!-- End 个人头像内容-->
+            </ul>
+          </nav>
+        </header>
+        <!-- End 头部信息-->
+        <!-- 页面主要内容-->
+        <main class="lyear-layout-content">
+          <div id="iframe-content"></div>
+        </main>
+        <!-- End 页面主要内容-->
+      </div>
+    </div>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-multitabs/multitabs.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="js/index.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(e) {
+      });
+    </script>
+  </body>
+</html>

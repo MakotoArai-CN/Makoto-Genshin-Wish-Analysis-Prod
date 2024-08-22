@@ -3341,6 +3341,43 @@ body.lyear-index {
 	max-width: var(--sidebar-width);
 }
 
+/* logo */
+.custom-header {
+	position: relative;
+	overflow: hidden;
+	z-index: 999;
+	background-color: var(--bs-white);
+	width: 100%;
+	-webkit-box-shadow: 0 1px 1px -1px rgba(var(--bs-dark-rgb), 0.25);
+	box-shadow: 0 1px 1px -1px rgba(var(--bs-dark-rgb), 0.25);
+}
+
+.custom-header:before,
+.custom-header:after {
+	content: " ";
+	display: table;
+}
+
+.custom-header a {
+	display: block;
+	width: 100%;
+	height: var(--header-height);
+	overflow: hidden;
+	display: -webkit-box;
+	display: -moz-box;
+	display: box;
+	-webkit-box-align: center;
+	-moz-box-align: center;
+	box-align: center;
+	-webkit-box-pack: center;
+	-moz-box-pack: center;
+	box-pack: center;
+}
+
+.custom-header a img {
+	max-width: var(--sidebar-width);
+}
+
 /* 菜单 */
 .sidebar-main {
 	-webkit-transform: translateZ(0);
@@ -3459,6 +3496,21 @@ body.lyear-index {
 	line-height: 24px;
 }
 
+.sidebar-footer a:link{
+    color: var(--bs-info);
+}
+
+.sidebar-footer a:visited{
+    color: var(--bs-pink);
+}
+
+.sidebar-footer a:hover{
+    color: var(--bs-primary);
+}
+
+.sidebar-footer a:active{
+    color: var(--bs-success);
+}
 /** ----------------------------------
  * 头部导航
  -------------------------------------- */
@@ -3570,7 +3622,7 @@ body.lyear-index {
 
 /* 主题配置选择 */
 .dropdown-skin .dropdown-menu {
-    width: 262px;
+    width: 100px;
     -moz-user-select: none; /* 火狐 */
     -webkit-user-select: none; /* webkit浏览器 */
     -ms-user-select: none; /* IE10 */
