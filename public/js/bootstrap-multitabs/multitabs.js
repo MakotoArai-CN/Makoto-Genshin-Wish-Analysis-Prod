@@ -782,6 +782,12 @@ if (typeof jQuery === "undefined") {
                     });
                 });
             }
+
+            //鼠标中键按下关闭
+            (function (){
+                //鼠标中键按下
+                $()
+            })
             
             // 右键菜单
             handler($el.nav, 'contextmenu', '.mt-nav-tab', function (event) {

@@ -1,0 +1,185 @@
+extends ../layout
+
+block content
+  .container-fluid
+    .row 
+      .card#search.p-2
+        form.row.row-cols-lg-auto.g-3.align-items-center(action="/GenshinDownload/client" method="get", novalidate)
+          .col-9.col-lg-9
+            .input-group
+              input.form-control(type="text" placeholder="搜索有趣的内容" name="q", required)
+              .invalid-feedback 扑空啦，快重来~
+
+          .col-3.col-lg-3
+            button.btn.btn-primary.btn-round(type="submit" style="width: 100%;") 查询
+
+        .row.card.text-start.p-2.px-2 OTHER RESOURCES
+          .col-3.col-lg-3
+            a.btn.btn-white-50.btn-round.text-info(href="https://files.hk4e.com/" target="_blank") hk4e.com
+
+        .row.g-2
+          if resources.length > 0
+            each resource in resources
+              .col-xs-12.col-md-6.col-lg-4.col-xl-3.col-xxl-3.p-2
+                .card.downliad_card.shadow-sm
+                  img.card-img-top(src=resource.image, alt="...")
+                  .card-body
+                    h5.card-title= resource.name
+                    p.card-text= resource.description
+                    .text-end
+                      button.btn.btn-primary.card_modal(style="margin-right:10px;" type="button", data-name=resource.name, data-bs-toggle="modal" data-bs-target="#resourceModal") More
+                      if resource.androidLink
+                        a.btn.btn-primary(href=resource.androidLink style="margin-right:10px;") Android
+                      if (/\.zip$/.test(resource.pcLink[0]))
+                        a.btn.btn-primary(href=resource.pcLink[0]) PC
+          else
+            p 没有找到匹配的版本信息
+
+    .modal.fade#resourceModal(tabindex="-1" aria-labelledby="resourceModalLabel" aria-hidden="true")
+      .modal-dialog.modal-fullscreen.modal-dialog-scrollable
+        .modal-content
+          .modal-header
+            h5.modal-title#resourceModalLabel 原神4.0
+            button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+          .modal-body
+            .row 
+              h5 Android
+              .col-xs-12.col-sm-12.col-md-6
+                h6 安装包
+                table.table-striped#android_list(style="width: 100%;")
+
+              .col-xs-12.col-sm-12.col-md-6
+                h6 数据包
+                table.table-striped#androidData_list(style="width: 100%;")
+              hr
+              h5 Windows
+              .col-xs-12.col-sm-12.col-md-6
+                h6 主程序
+                table.table-striped#windows_list(style="width: 100%;")
+              .col-xs-12.col-sm-12.col-md-6
+                h6 语音包
+                table.table-striped#audio_list(style="width: 100%;")
+          .modal-footer
+            button.btn.btn-danger(type="button" data-bs-dismiss="modal") 关闭
+            
+  .position-fixed.top-0.start-50.p-3(style="z-index: 99999;")
+    .toast.align-items-center#liveToast(role="alert" aria-live="assertive" aria-atomic="true")
+      .d-flex
+        .toast-body.text-center.text-success 
+          .card
+            span 复制成功！
+        button.btn-close.me-2.m-auto(type="button" data-bs-dismiss="toast" aria-label="Close")
+
+
+  script(type="text/javascript" src="../js/jquery.min.js")
+  script(type="text/javascript" src="../js/popper.min.js")
+  script(type="text/javascript" src="../js/bootstrap.min.js")
+  script(type="text/javascript" src="../js/chart.min.js")
+  script(type="text/javascript" src="../js/lyear-loading.js")
+  script.
+    $(document).ready(function() {
+      // 添加鼠标悬停效果
+      $(".downliad_card").on("mouseover", function() {
+        $(this).addClass("shadow");
+        $(this).css("transition", "all 0.5s ease").css("transform", "scale(1.001)").css("margin-top", "-5px");
+      }).on("mouseout", function() {
+        $(this).removeClass("shadow");
+        $(this).css("transition", "all 0.5s ease").css("transform", "scale(1)").css("margin-top", "0px");
+      });
+
+
+      function loading(){
+        var load = $('body').lyearloading({
+          opacity: 0.5,
+          spinnerSize: 'lg',
+          spinnerText: '数据获取中...',
+          textColorClass: 'text-info',
+          spinnerColorClass: 'text-info'
+        });
+        return load;
+      }
+      
+      // 当点击任何一个卡片时，加载该资源的详细信息
+      $(".card_modal").on("click", function(e) {
+        loading();
+        e.preventDefault();  // Prevent default behavior to avoid page reload
+        var resourceName = $(this).data("name").replace(/[^\d.]/g, '');  // Get the resource name from the data attribute and clean it
+        console.log("Resource Name:", resourceName);  // Log the resource name for debugging
+
+        // 请求该资源的详细信息
+        $.ajax({
+          url: "/GenshinDownload/details",  // Define the URL to fetch the detailed information
+          method: "GET",
+          data: { name: resourceName },  // Send the resource name as part of the query string
+          success: function(data) {
+            loading().hide();
+
+            // 更新模态框内容
+            $("#resourceModalLabel").text(resourceName);  // Update the modal title
+            //- console.log(data.windowsPackageUrl.length)
+
+            // 更新模态框内容
+            function updateWindowsDetails(selector,data,dataTyle) {
+              $(selector).empty();
+              for (let i=0;i<data[dataTyle + 'Url'].length;i++){
+                $(selector).append(`
+                <tr>
+                  <td><a class="btn btn-info" href="${data[dataTyle + 'Url'][i]==undefined?"":data[dataTyle + 'Url'][i]}">${(data[dataTyle + 'Url'][i]==undefined?"":data[dataTyle + 'Url'][i]).match(/\/[^/]+$/)[0].replace( /\//g, '')}</a></td>
+                  <td>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="${data[dataTyle + 'Md5'][i]==undefined?"":data[dataTyle + 'Md5'][i]}"> 
+                      <button type="button"  title="${data[dataTyle + 'Md5'][i]==undefined?"":data[dataTyle + 'Md5'][i]}" class="copyMD5 btn btn-primary">MD5</button>
+                    </span>
+                  </td>
+                  <td>${data[dataTyle + 'Size'][i]==undefined?"":data[dataTyle + 'Size'][i]}</td>
+                  <td>${data[dataTyle + 'Time'][i]==undefined?"":data[dataTyle + 'Time'][i]}</td>
+                </tr>
+                `);
+              }
+            }
+            function updateAndroidDetails(selector,data,dataTyle) {
+              $(selector).empty();
+              //- for (let i=0;i<data[dataTyle + 'Url'].length;i++){
+                $(selector).append(`
+                <tr>
+                  <td><a class="btn btn-info" href="${data[dataTyle + 'Url']==(undefined || null)?"":data[dataTyle + 'Url']}">Dowdload</a></td>
+                  <td>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="${data[dataTyle + 'Md5']==undefined?"":data[dataTyle + 'Md5']}"> 
+                      <button type="button"  title="${data[dataTyle + 'Md5']==undefined?"":data[dataTyle + 'Md5']}" class="copyMD5 btn btn-primary">MD5</button>
+                    </span>
+                  </td>
+                  <td>${data[dataTyle + 'Size']==undefined?"":data[dataTyle + 'Size']}</td>
+                  <td>${data[dataTyle + 'Time']==undefined?"":data[dataTyle + 'Time']}</td>
+                </tr>
+                `);
+              //- }
+            }
+
+        updateAndroidDetails("#android_list", data , "androidInstall")
+        updateAndroidDetails("#androidData_list", data, "androidData")
+        updateWindowsDetails("#windows_list", data, "windowsPackage")
+        updateWindowsDetails("#audio_list", data, "windowsResource")
+
+        $('.copyMD5').on('click', function() {
+          // 获取当前元素的 title 属性值
+          var titleValue = $(this).attr('title');
+
+          // 使用 navigator.clipboard.writeText() 复制文本
+          navigator.clipboard.writeText(titleValue)
+            .then(function() {
+              //- alert('Title copied: ' + titleValue);
+              let toastLive = document.getElementById('liveToast');
+              let toast = new bootstrap.Toast(toastLive);
+              toast.show();
+            })
+            .catch(function(error) {
+              console.error('Failed to copy text: ', error);
+            });
+        });
+        $("#resourceModal").modal("show");  // Show the modal after updating the content
+          },
+          error: function() {
+            alert("Failed to load details.");
+          }
+        });
+      });
+    });

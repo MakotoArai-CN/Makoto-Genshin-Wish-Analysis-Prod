@@ -1,0 +1,129 @@
+extends ../layout
+
+block content
+  .container-fluid
+    .row 
+      .card#search.p-4
+        form.row.row-cols-lg-auto.g-3.align-items-center(action="/GenshinDownload/server" method="get", novalidate)
+          .col-7.col-lg-7
+            .input-group
+              input.form-control(type="text" placeholder="搜索有趣的内容" name="q", required)
+              .invalid-feedback 扑空啦，快重来~
+
+          .col-3.col-lg-3
+            button.btn.btn-primary.btn-round(type="submit" style="width: 100%;") 查询
+
+        .row.g-2
+          if servers.length > 0
+            each server in servers
+              if server.server.url
+                .col-xs-12.col-md-6.col-lg-4.col-xl-3.col-xxl-3.p-2
+                  .father_card
+                    .card.shadow-sm.card_child
+                      img.card-img-top(src=server.image, alt="...")
+                      .card-body
+                        h5.card-title= server.name +"-"+ server.author
+                        p.card-text= server.description
+                        p.card-text.text-end
+                          button.btn.btn-primary(data-bs-toggle="collapse", data-bs-target= "#collapse"+server.name, style="margin-right:10px;") MORE
+                          if server.server.url
+                            a.btn.btn-primary(href= server.server.url) Download
+                        ul.list-group.list-group-flush.collapse(id="collapse"+server.name)
+                          if server.server.Supported
+                            li.list-group-item Supported Versions: #{server.server.Supported}
+                          if server.server.server_type
+                            li.list-group-item Server Type: #{server.server.server_type}
+                          if server.server.url
+                            li.list-group-item Link: 
+                              if server.server.url
+                                a.btn.btn-primary.btn-sm(href= server.server.url) Download
+                              else 
+                                span Not Available
+                          if server.server.md5
+                            li.list-group-item MD5: #{server.server.md5}
+                          if server.server.size
+                            li.list-group-item Size: #{server.server.size}
+                          if server.server.version
+                            li.list-group-item Version: #{server.server.version}
+                          if server.server.time
+                            li.list-group-item Release Time: #{server.server.time}
+                          if server.server.HTU
+                            li.list-group-item HTU: 
+                              a.btn.btn-primary.btn-sm(href= server.server.HTU) 教程
+                          if server.server.proxyTool
+                            li.list-group-item Proxy Tool:  
+                              a.btn.btn-primary.btn-sm(href= server.server.proxyTool) Fiddler
+                          if server.server.patch
+                            li.list-group-item Patch: 
+                              a.btn.btn-primary.btn-sm(href= server.server.patch) 补丁
+          else
+            p 没有找到匹配的服务器信息
+
+  script(type="text/javascript" src="js/jquery.min.js")
+  script(type="text/javascript" src="js/popper.min.js")
+  script(type="text/javascript" src="js/bootstrap.min.js")
+  script(type="text/javascript" src="js/chart.min.js")
+  script(type="text/javascript" src="js/lyear-loading.js")
+  script.
+    $(document).ready(function() {
+      $(".father_card").on("mouseover", function() {
+        //- console.log("鼠标进入父元素");
+        $(this).css({
+          "transition": "all 0.5s ease",
+          "position": "relative",
+          "z-index": "1000",
+          "transform": "scale(1.001)",
+          "margin-top": "-5px"
+        });
+        $(this).find(".card_child").css({
+          "position": "absolute",
+          "top": "0"
+        }); 
+      }).on("mouseleave", function() {
+        //- console.log("鼠标离开父元素");
+        $(this).css({
+          "transition": "all 0.5s ease",
+          "position": "",
+          "z-index": "0",
+          "transform": "scale(1)",
+          "margin-top": "0px"
+        });
+        $(this).find(".card_child").css({
+          "position": "",
+          "top": ""
+        });
+      });
+
+
+      let more_flag = false;
+      $(".card_child").on("click",function(){
+        //- console.log("鼠标进入父元素");
+        if(more_flag){
+          $(this).css({
+            "transition": "all 0.5s ease",
+            "position": "relative",
+            "z-index": "1000",
+            "transform": "scale(1.001)",
+            "margin-top": "-5px"
+          });
+          $(this).find(".card_child").css({
+            "position": "absolute",
+            "top": "0"
+          }); 
+          more_flag = !more_flag;
+        }else{
+          $(this).css({
+            "transition": "all 0.5s ease",
+            "position": "",
+            "z-index": "0",
+            "transform": "scale(1)",
+            "margin-top": "0px"
+          });
+          $(this).find(".card_child").css({
+            "position": "",
+            "top": ""
+          });
+          more_flag = !more_flag;
+        }
+      })
+    });

@@ -1,13 +1,14 @@
 extends layout
 
 block content
+  link(rel="preload", href="images/users/avatar.webp", as="image")
   .lyear-layout-web
     .lyear-layout-container
       // 左侧导航
       aside.lyear-layout-sidebar
         //  logo 
         #logo.custom-header
-          a
+          a(rel="nofollow canonical")
             img(src="images/logo-sidebar"+daytime+".webp", title="Makoto-Genshin-Wish", alt="Makoto-Genshin-Wish")
         .lyear-layout-sidebar-info.lyear-scroll
           nav.sidebar-main
@@ -16,32 +17,17 @@ block content
                 a.multitabs#default-page(href="/main")
                   i.mdi.mdi-card-search-outline
                   span 祈愿
-              li.nav-item.nav-item-has-subnav
-                a.multitabs(href="javascript:void(0)")
-                  i.mdi.mdi-panorama-sphere
-                  span 原神下载
-                ul.nav.nav-subnav
-                  li
-                    a.multitabs(href="/404.html") 客户端
-                  li
-                    a.multitabs(href="/404.html") 服务端
-              li.nav-item.nav-item-has-subnav
-                a.multitabs(href="javascript:void(0)")
-                  i.mdi.mdi-panorama-sphere
-                  span 崩铁下载
-                ul.nav.nav-subnav
-                  li
-                    a.multitabs(href="/404.html") 客户端
-                  li
-                    a.multitabs(href="/404.html") 服务端
-                //-   li
-                //-     a.multitabs(href="/404.html") 添加账号
-                //-   li
-                //-     a.multitabs(href="/404.html") 账号管理
-                //-   li
-                //-     a.multitabs(href="/404.html") 指令操作
-              
-                  
+                
+              each plugin in plugins
+                li.nav-item.nav-item-has-subnav
+                  a(rel="nofollow")
+                    i.mdi(class=plugin.icon)
+                    span= plugin.name
+                  ul.nav.nav-subnav
+                    each subnavItem in plugin.nav
+                      li
+                        a.multitabs(href=subnavItem.href)= subnavItem.name
+            // End 左侧导航菜单
           .sidebar-footer.text-center
             p.copyright
               span Copyright © 2024. 
@@ -86,11 +72,10 @@ block content
               span.dropdown-toggle(href="javascript:void(0)", data-bs-toggle="dropdown")
                 img.avatar-md.rounded-circle(
                     src="images/users/avatar.webp",
-                    srcset="images/users/avatar-small.webp 480w,images/users/avatar-medium.webp 768w,images/users/avatar-large.webp 1024w",
-                    sizes="(max-width: 640px) 480px,(max-width: 960px) 768px,1024px",
+                    srcset="images/users/avatar-small.webp 1x,images/users/avatar-medium.webp 2x,images/users/avatar-large.webp 3x",
                     alt="avatar"
                   )
-                span#username.text-indigo(style="margin-left: 10px;") 刻晴
+                span#username(style="margin-left: 10px;" class= (daytime==1?"text-indigo":"text-light")) 刻晴
               ul.dropdown-menu.dropdown-menu-end
                 li
                   button.multitabs.dropdown-item(onclick="localStorage.removeItem('UID');location.href = '/';")
@@ -129,4 +114,3 @@ block content
     
     $(document).ready(function(e) {
     });
-    
