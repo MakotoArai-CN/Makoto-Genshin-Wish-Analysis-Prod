@@ -1,77 +1,78 @@
 #!/usr/bin/env node
-
 /**
- * Module dependencies.
+ * 服务器启动入口
+ * @module bin/www
  */
 
-var app = require('../app');
-var debug = require('debug')('web:server');
-var http = require('http');
-var {set_port} = require("../config");
+import http from 'http';
+import app from '../app.js';
+import { serverConfig, consoleColor } from '../config.js';
+import { initDatabase, closeDatabase } from '../services/database.js';
+
+const { red, green, blue, yellow, white, reset } = consoleColor;
 
 /**
- * Get port from environment and store in Express.
+ * 标准化端口
+ * @param {string|number} val - 端口值
+ * @returns {number|string|boolean}
  */
-
-var port = normalizePort(set_port==""?'13145':set_port);
-
-app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-var server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
 function normalizePort(val) {
-  var port = parseInt(val, 10);
-
+  const port = parseInt(val, 10);
+  
   if (isNaN(port)) {
-    // named pipe
-    return val;
+    return val; // named pipe
   }
-
+  
   if (port >= 0) {
-    // port number
     return port;
   }
-
+  
   return false;
 }
 
 /**
- * Event listener for HTTP server "error" event.
+ * 打印启动 Banner
+ * @param {number} port - 监听端口
+ * @param {boolean} dbConnected - 数据库是否连接
  */
+function printBanner(port, dbConnected = true) {
+  console.log(red, String.raw` __  __       _         _        `, blue, String.raw`   _____                _     _       `, green, String.raw` __          ___     _ `, reset);
+  console.log(red, String.raw`|  \/  |     | |       | |       `, blue, String.raw`  / ____|              | |   (_)      `, green, String.raw` \ \        / (_)   | | `, reset);
+  console.log(red, String.raw`| \  / | __ _| | _____ | |_ ___  `, blue, String.raw` | |  __  ___ _ __  ___| |__  _ _ __  `, green, String.raw`  \ \  /\  / / _ ___| |__ `, reset);
+  console.log(red, String.raw`| |\/| |/ _\ | |/ / _ \| __/ _ \ `, blue, String.raw` | | |_ |/ _ \ '_ \/ __| '_ \| | '_ \ `, green, String.raw`   \ \/  \/ / | / __| '_ \ `, reset);
+  console.log(red, String.raw`| |  | | (_| |   < (_) | || (_) |`, blue, String.raw` | |__| |  __/ | | \__ \ | | | | | | |`, green, String.raw`    \  /\  /  | \__ \ | | |`, reset);
+  console.log(red, String.raw`|_|  |_|\__,_|_|\_\___/ \__\___/ `, blue, String.raw`  \_____|\___|_| |_|___/_| |_|_|_| |_|`, green, String.raw`     \/  \/   |_|___/_| |_|`, reset);
+  console.log();
+  console.log(white, '🎮 Welcome to Genshin Impact Wish Analysis System!', reset);
+  console.log(white, `🚀 Server is running at http://127.0.0.1:${port}`, reset);
+  console.log(white, `📊 Environment: ${serverConfig.env}`, reset);
+  
+  if (!dbConnected) {
+    console.log(yellow, '⚠️  Database: Not connected (limited functionality)', reset);
+  } else {
+    console.log(green, '✅ Database: Connected', reset);
+  }
+  console.log();
+}
 
+/**
+ * HTTP 服务器错误处理
+ * @param {Error} error - 错误对象
+ */
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
 
-  // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      console.error(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      console.error(`${bind} is already in use`);
       process.exit(1);
       break;
     default:
@@ -79,23 +80,81 @@ function onError(error) {
   }
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
+// ==================== 启动服务器 ====================
 
-function onListening() {
-  const {console_color} = require("../config.js");
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-  console.log(console_color.red,String.raw` __  __       _         _        ` , console_color.blue, String.raw`   _____                _     _       ` , console_color.green, String.raw` __          ___     _ `);
-  console.log(console_color.red,String.raw`|  \/  |     | |       | |       ` , console_color.blue, String.raw`  / ____|              | |   (_)      ` , console_color.green, String.raw` \ \        / (_)   | | `);
-  console.log(console_color.red,String.raw`| \  / | __ _| | _____ | |_ ___  ` , console_color.blue, String.raw` | |  __  ___ _ __  ___| |__  _ _ __  ` , console_color.green, String.raw`  \ \  /\  / / _ ___| |__ `);
-  console.log(console_color.red,String.raw`| |\/| |/ _\ | |/ / _ \| __/ _ \ ` , console_color.blue, String.raw` | | |_ |/ _ \ '_ \/ __| '_ \| | '_ \ ` , console_color.green, String.raw`   \ \/  \/ / | / __| '_ \ `);
-  console.log(console_color.red,String.raw`| |  | | (_| |   < (_) | || (_) |` , console_color.blue, String.raw` | |__| |  __/ | | \__ \ | | | | | | |` , console_color.green, String.raw`    \  /\  /  | \__ \ | | |`);
-  console.log(console_color.red,String.raw`|_|  |_|\__,_|_|\_\___/ \__\___/ ` , console_color.blue, String.raw`  \_____|\___|_| |_|___/_| |_|_|_| |_|` , console_color.green, String.raw`     \/  \/   |_|___/_| |_|`, console_color.white);
-  console.log(console_color.white,"\nWelcome to the Genshin Impact Command Server Prayer Statistics System!");
-  console.log("Server is running http://127.0.0.1:"+port);
+const port = normalizePort(serverConfig.port);
+app.set('port', port);
+
+const server = http.createServer(app);
+
+// 数据库连接状态
+let dbConnected = false;
+
+// 尝试连接数据库（非阻塞）
+async function tryConnectDatabase() {
+  try {
+    await initDatabase();
+    dbConnected = true;
+    console.log('✅ Database connected successfully');
+  } catch (error) {
+    dbConnected = false;
+    console.warn('⚠️  Database connection failed:', error.message);
+    console.warn('⚠️  Server will start without database (limited functionality)');
+    console.warn('⚠️  Please ensure MongoDB is running and try again');
+  }
 }
+
+// 服务器开始监听
+function onListening() {
+  const addr = server.address();
+  const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
+  console.log(`✅ Listening on ${bind}`);
+  printBanner(port, dbConnected);
+}
+
+// 启动流程
+async function startServer() {
+  // 尝试连接数据库（不阻塞启动）
+  await tryConnectDatabase();
+
+  // 将数据库状态传递给 app
+  app.set('dbConnected', dbConnected);
+
+  // 启动 HTTP 服务器
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+}
+
+// 执行启动
+startServer();
+
+// ==================== 优雅关闭 ====================
+
+const gracefulShutdown = async (signal) => {
+  console.log(`\n📴 Received ${signal}, shutting down gracefully...`);
+  
+  server.close(async () => {
+    console.log('🔌 HTTP server closed');
+    
+    if (dbConnected) {
+      try {
+        await closeDatabase();
+        console.log('💾 Database connection closed');
+      } catch (error) {
+        console.error('Error closing database:', error);
+      }
+    }
+    
+    process.exit(0);
+  });
+
+  // 如果10秒内没有关闭，强制退出
+  setTimeout(() => {
+    console.error('⚠️ Could not close connections in time, forcefully shutting down');
+    process.exit(1);
+  }, 10000);
+};
+
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));

@@ -1,104 +1,82 @@
 @echo off
-title MAP-CAT
+chcp 65001 >nul
+title Makoto Genshin Wish Analysis
+
+echo.
+echo ==========================================
+echo   Makoto Genshin Wish Analysis System
+echo ==========================================
+echo.
 
 :: 检测网络连接
-ping -n 1 www.baidu.com >nul
-if %errorlevel% == 0 (
-    goto begin
-) else (
-    echo Network is NOT connected.
-    goto endd
+echo [INFO] 检测网络连接...
+ping -n 1 www.baidu.com >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [ERROR] 网络未连接
+    goto :end
+)
+echo [SUCCESS] 网络连接正常
+
+:: 检测 Bun
+where bun >nul 2>&1
+if %errorlevel% equ 0 (
+    echo [SUCCESS] Bun 已安装
+    goto :use_bun
 )
 
-:begin
-@echo off
-node -v
-if %errorlevel% == 0 (
-    for /f "delims=" %%a in ('node -v 2^>nul') do (
-        set nodeVersion=%%a
+:: 检测 Node.js
+where node >nul 2>&1
+if %errorlevel% equ 0 (
+    for /f "tokens=1,2,3 delims=." %%a in ('node -v') do (
+        set NODE_MAJOR=%%a
     )
-) else (
-   goto download
-)
-if %nodeVersion% =="" (
-    goto question
-) else (
-    echo Node.js seems to be installed.
-    goto checkNodeVersion
+    set NODE_MAJOR=%NODE_MAJOR:~1%
+    echo [SUCCESS] Node.js 已安装
+    goto :use_node
 )
 
-:question
-echo Node.js does not seem to be installed.
-set /p answer=Do you want to download and install Node.js? (y/n):
-if /i %answer%==y (
-    goto checkCurl
+echo [ERROR] 未找到 Bun 或 Node.js
+echo.
+set /p install_choice=是否下载并安装 Node.js? (y/n): 
+if /i "%install_choice%"=="y" (
+    goto :install_node
 ) else (
-    goto endd
+    goto :end
 )
 
-:download
-
-echo Downloading Node.js(V20.9.0)...
+:install_node
+echo [INFO] 正在下载 Node.js...
 curl -L https://registry.npmmirror.com/-/binary/node/v20.9.0/node-v20.9.0-x64.msi -o node.msi --progress-bar
-echo Download complete.   
-echo Please install Node.js using the downloaded file: node.msi
-start node.msi
-set /p nodeVersionquerstion=Do you have installed Node.js? (y/n):
-if /i %nodeVersionquerstion%==y (
-    del node.msi
-    goto begin
-) else (
-    goto endd
+if %errorlevel% neq 0 (
+    echo [ERROR] 下载失败
+    goto :end
 )
+echo [INFO] 请安装下载的 node.msi 文件
+start /wait node.msi
+del node.msi
+echo [INFO] 安装完成，请重新运行此脚本
+goto :end
 
-:update
-set /p updatequestion= Do you want to update Node.js(V20.9.0)? (y/n):
-if /i %updatequestion%==y (
-    goto checkCurl
-) else (
-    goto endd
+:use_bun
+echo [INFO] 使用 Bun 运行...
+call bun install
+if %errorlevel% neq 0 (
+    echo [ERROR] 依赖安装失败
+    goto :end
 )
+call bun run start
+goto :end
 
-:checkNodeVersion
-echo Checking Node.js version...
-if %nodeVersion:~1,2% gtr 14 (
-    echo Node.js version is OK.
-    goto checkNpmRegistry
-) else (
-    echo Your Node.js version is too low. This project requires Node.js version 14 or higher.
-    goto update
+:use_node
+echo [INFO] 使用 Node.js 运行...
+call npm install
+if %errorlevel% neq 0 (
+    echo [ERROR] 依赖安装失败
+    goto :end
 )
+call npm run start:node
+goto :end
 
-:checkNpmRegistry
-echo Checking npm registry...
-for /f "tokens=2 delims=:" %%a in ('npm config get registry') do (
-    set npmreg=%%a
-)
-if %npmreg%=="//registry.npmjs.org" (
-    goto setNpmRegistry
-) else (
-    goto startProject
-)
-
-:setNpmRegistry
-set /p changeRegistryQuestion=Your npm registry is set to the official source. Do you want to switch to the mirror source? (y/n):
-if /i %changeRegistryQuestion%==y (
-    call npm config set registry https://registry.npmmirror.com
-    echo Registry changed to https://registry.npmmirror.com
-    goto startProject
-) else (
-    goto endd
-)
-
-:startProject
-echo Starting project...
-call npm i
-if %errorlevel% EQU 0 (
-    echo Installation complete.   
-    call npm run start
-) else (
-    echo Installation failed.
-    goto endd
-)
-
-:endd
+:end
+echo.
+pause

@@ -1,0 +1,5 @@
+# Bun 配置文件
+
+[install]
+# 使用国内镜像
+registry = "https://registry.npmmirror.com"
